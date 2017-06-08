@@ -1,3 +1,5 @@
+var iddato;
+var idperfil;
 $(document).ready(function(){
     $.ajax({
         type:'POST',
@@ -8,13 +10,32 @@ $(document).ready(function(){
         }
     });
     $('#verRequerimientos').click(function(){
-        var iddato=$('#idreq').val();
+        iddato=$('#idreq').val();
         $.ajax({
             type:'POST',
             data:{opcion:2,dato:iddato},
             url:'AjaxGestionPerfil',
             success:function(response){
                 $("#requerimientoespecifico").html(response);
+                $.ajax({
+                    type:'POST',
+                    data:{opcion:3},
+                    url:'AjaxGestionPerfil',
+                    success:function(response){
+                        $('#perfiles').html(response);
+                    }
+                });
+            }
+        });
+    });
+    $('#asignarPerfil').click(function(){
+        idperfil=$('#idperf').val();
+        $.ajax({
+            type:'POST',
+            data:{opcion:4,idrequerimiento:iddato,idperfil:idperfil},
+            url:'AjaxGestionPerfil',
+            success:function(response){
+                $('#solicitud').html("Perfil Asignado");
             }
         });
     });
