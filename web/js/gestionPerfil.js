@@ -1,0 +1,21 @@
+$(document).ready(function(){
+    $.ajax({
+        type:'POST',
+        data:{opcion:1},
+        url:"AjaxGestionPerfil",
+        success:function(response){
+            $("#requerimientos").html(response);
+        }
+    });
+    $('#verRequerimientos').click(function(){
+        var iddato=$('#idreq').val();
+        $.ajax({
+            type:'POST',
+            data:{opcion:2,dato:iddato},
+            url:'AjaxGestionPerfil',
+            success:function(response){
+                $("#requerimientoespecifico").html(response);
+            }
+        });
+    });
+});
